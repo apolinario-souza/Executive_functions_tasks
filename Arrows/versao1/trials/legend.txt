@@ -1,0 +1,2 @@
+1 = arrow left; 2 = 45 right in left side; 3 = arrow right; 4 = 45 left in right side 
+ 0 = key left; 1 = key right; -1 = no key
