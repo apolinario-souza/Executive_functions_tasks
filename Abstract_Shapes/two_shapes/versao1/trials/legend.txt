@@ -1,2 +1,0 @@
-1 = shape left 1; 2 = shape right1 
- 0 = key left; 1 = key right; -1 = no key
