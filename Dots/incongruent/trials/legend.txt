@@ -1,0 +1,2 @@
+1 = dots solid left; 2 = dots solid left; 3 = dots solid right; 4 = dots solid right 
+ 0 = key left; 1 = key right; -1 = no key

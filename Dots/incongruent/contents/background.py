@@ -1,5 +1,5 @@
 import pygame
-from .constants import WIDTH, HEIGHT, N_TRIALS, BLACK  
+from .constants import WIDTH, HEIGHT, N_TRIALS, BLACK,PERC_SWITCHES, PRESENTATION_TIME, INTERSTIMULUS  
 import random
 
 import numpy as np
@@ -43,6 +43,25 @@ class Target_random:
                 
                     
         return self.response
+class switches:
+
+    def switches_control (n_trial, perce):
+        checar = True
+        while checar:   
+            sequence = Target_random().target_control(n_trial)
+            var = []
+            for k in range(len(sequence)-1):
+                var.append(abs(sequence[k]-sequence[k+1]))
+
+            cont = 0
+    
+            for i in var:
+                if i == 0:
+                    cont+=1;
+            if cont == (n_trial*(1-perce)):
+                checar = False
+            
+            return sequence
   
 
 class Background:
@@ -53,7 +72,7 @@ class Background:
         self.trial = 0
         self.target = []
         self.cont = 0 #Timer counter        
-        self.sequence = Target_random().target_control(N_TRIALS) 
+        self.sequence = switches.switches_control(N_TRIALS, PERC_SWITCHES) 
         
         np.savetxt('trials/sequence.csv', np.array(self.sequence))         
     
@@ -111,12 +130,12 @@ class Background:
                                
             
             # Screen 1: Holding 
-            if self.cont >= 0 and self.cont < 500:
+            if self.cont >= 0 and self.cont < INTERSTIMULUS:
                 win.fill(BLACK)
                 self.draw_rectangle_init(win)                             
             
             # Screen 2: Stimulus 
-            if self.cont >= 500 and self.cont < 500+750:
+            if self.cont >= INTERSTIMULUS and self.cont < INTERSTIMULUS+PRESENTATION_TIME:
                 win.fill(BLACK)
                 self.draw_rectangle_init(win)
                 
@@ -132,7 +151,7 @@ class Background:
                     self.img (win,  WIDTH*.77, (HEIGHT//2)-(WIDTH*.05), WIDTH*.10, "img/dots_solid.png")# dots solid right                           
                 
             # Set all ans Save
-            if self.cont >= 500+751 and self.cont >= 500+751+50:
+            if self.cont >= INTERSTIMULUS+PRESENTATION_TIME+1 and self.cont >= INTERSTIMULUS+PRESENTATION_TIME+1+50:
                 win.fill(BLACK)
                 self.draw_rectangle_init(win)
                 names = ['Time', 'Key_press', 'Stimulus']
