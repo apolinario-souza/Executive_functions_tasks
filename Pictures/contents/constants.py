@@ -2,6 +2,9 @@ import pygame
 pygame.init()
 #Configuration trials
 N_TRIALS = 20
+PERC_SWITCHES = .5
+PRESENTATION_TIME = 750
+INTERSTIMULUS = 500
 
 #Configuration screen
 screen = pygame.display.set_mode()
