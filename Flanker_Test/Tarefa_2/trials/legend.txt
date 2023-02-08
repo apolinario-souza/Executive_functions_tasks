@@ -1,0 +1,2 @@
+1 = all left; 2 = center left; 3 = all right; 4 = center right 
+ 0 = key left; 1 = key right; -1 = no key
