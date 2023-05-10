@@ -1,2 +1,0 @@
-1 = todos para esq.; 2 = laterais esquerda; 3 = todos para direita; 4 = laterais para esquerda; 5 = all left; 6 = center left; 7 = all right; 8 = center right 
- 0 = key left; 1 = key right; -1 = no key
