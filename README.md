@@ -1,6 +1,6 @@
 # **Tarefas de funções executivas**
 
-Esse é um conjunto de quatro tarefas do artigo "Development of cognitive control and executive functions from 4 to 13 years: Evidence from manipulations of memory, inhibition, and task switching".
+Exceto pela tarefa de Flanker, esse é um conjunto de quatro tarefas do artigo "Development of cognitive control and executive functions from 4 to 13 years: Evidence from manipulations of memory, inhibition, and task switching".
 
 # Usuários Windows
 
@@ -15,6 +15,7 @@ Esse é um conjunto de quatro tarefas do artigo "Development of cognitive contro
 
 ## Utilização dos programas
 - Faça o download da pasta do programa que deseja utilizar.
-- Dentro de cada pasta há uma subpasta com o nome de "contents", essa pasta modifique as configurações da tarefa da forma que julgar necessário. N_TRIALS = Número das tentativas da tarefa; PERC_SWITCHES = percentual de mudanças nas condições; PRESENTATION_TIME = tempo de apresentação do estímulo; INTERSTIMULUS = tempo entre os estímulos.
+- Dentro de cada pasta há uma subpasta com o nome de "contents", nessa pasta modifique o arquivo 'constants' nas configurações da tarefa da forma que julgar necessário. SUJ = código do sujeito; N_TRIALS = Número das tentativas da tarefa; PERC_SWITCHES = percentual de mudanças nas condições; PRESENTATION_TIME = tempo de apresentação do estímulo; INTERSTIMULUS = tempo entre os estímulos.
 - Para executar a tarefa apenas clique no arquivo "Executable.bat" que se encontra dentro de cada pasta.
 - Os arquivos são salvos dentro da pasta "trials", bem como a legenda do que representa cada valor.
+- O arquivo 'abrir_arquivo_constants.bat', dentro da pasta "contents", é um arquivo que abre automaticamente o aquivo 'constants'.
