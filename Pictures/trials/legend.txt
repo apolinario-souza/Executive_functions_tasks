@@ -1,2 +1,0 @@
-1 = frog left; 2 = butterfly left; 3 = frog right; 4 = butterfly right 
- 0 = key left; 1 = key right; -1 = no key
