@@ -1,0 +1,30 @@
+Como instalar (Windows)
+========================
+
+1. Verifique se o computador está conectado à internet.
+2. Dê dois cliques no arquivo "instalacao.bat" (nesta mesma pasta).
+3. Aguarde. A janela preta vai mostrar o andamento sozinha — não é
+   preciso clicar em nada, só esperar até aparecer a mensagem:
+   "Instalacao concluida com sucesso!"
+4. Aperte qualquer tecla para fechar a janela.
+
+Pronto! Agora é só abrir qualquer tarefa clicando duas vezes no arquivo
+"Executable.bat" que fica dentro da pasta de cada tarefa
+(ex: Tarefas\Abstract_Shapes\two_shapes\Executable.bat).
+
+
+Se der algum erro
+------------------
+- Confira a internet e rode "instalacao.bat" de novo (pode rodar quantas
+  vezes quiser, ele pula o que já está instalado).
+- Se a tela de instalação do Python aparecer pedindo para marcar uma
+  caixinha, marque "Add python.exe to PATH" antes de clicar em "Install Now".
+- Se nada disso resolver, tire um print da mensagem de erro e envie
+  para o suporte (edf.tercio@gmail.com).
+
+
+O que esse arquivo instala
+----------------------------
+- Python 3.11 (se ainda não estiver instalado no computador)
+- As bibliotecas Python usadas pelas tarefas: numpy, pygame, pandas e
+  opencv-python (usada na tarefa Go-No-Go podal, que grava vídeo)
