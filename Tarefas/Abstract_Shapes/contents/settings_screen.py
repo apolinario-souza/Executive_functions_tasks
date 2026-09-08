@@ -1,11 +1,12 @@
 import pygame
 
-from .constants import WIDTH, HEIGHT, BLACK
+from .constants import WIDTH, HEIGHT, BLACK, PRACTICE_TRIALS
 from .input_box import InputBox, Button
 
 TITLE_FONT = pygame.font.Font(None, 40)
 LABEL_FONT = pygame.font.Font(None, 28)
 ENGLISH_FONT = pygame.font.Font(None, 20)
+BUTTON_FONT = pygame.font.Font(None, 26)
 FOOTER_FONT = pygame.font.Font(None, 18)
 ERROR_COLOR = (230, 90, 90)
 ENGLISH_COLOR = (140, 140, 140)
@@ -46,7 +47,12 @@ class SettingsScreen:
 
         self.fields = [self.suj_box, self.n_trials_box, self.presentation_box, self.interstimulus_box]
 
-        self.start_btn = Button(cx - box_w // 2, self.top + self.gap * 5 + 20, box_w, box_h, "Começar")
+        btn_row_y = self.top + self.gap * 5 + 20
+        half_btn_w = (box_w - 10) // 2
+        self.start_btn = Button(cx - box_w // 2, btn_row_y, half_btn_w, box_h,
+                                 "Começar", font=BUTTON_FONT)
+        self.practice_btn = Button(cx - box_w // 2 + half_btn_w + 10, btn_row_y, half_btn_w, box_h,
+                                    "Familiarização", font=BUTTON_FONT)
 
         # (label in Portuguese, English translation, y position)
         self.labels = [
@@ -57,20 +63,20 @@ class SettingsScreen:
             ("Interstímulo (ms)", "Interstimulus", self.top + self.gap * 4),
         ]
 
-    def _validate(self):
+    def _base_fields(self):
+        """Fields shared by 'Começar' and 'Familiarização': subject code,
+        variant, presentation time and interstimulus. Returns
+        (values, error)."""
         suj = self.suj_box.text.strip()
         if not suj:
             return None, "Informe o código do sujeito."
         if self.variant not in (2, 6):
             return None, "Selecione a tarefa: 2 ou 6 formas."
         try:
-            n_trials = int(self.n_trials_box.text)
             presentation_time = int(self.presentation_box.text)
             interstimulus = int(self.interstimulus_box.text)
         except ValueError:
-            return None, "Número de tentativas, tempo de apresentação e interstímulo devem ser números."
-        if n_trials <= 0 or n_trials % self.variant != 0:
-            return None, f"Número de tentativas deve ser positivo e múltiplo de {self.variant}."
+            return None, "Tempo de apresentação e interstímulo devem ser números."
         if presentation_time <= 0:
             return None, "Tempo de apresentação deve ser maior que zero."
         if interstimulus < 0:
@@ -78,10 +84,34 @@ class SettingsScreen:
         return {
             "suj": suj,
             "variant": self.variant,
-            "n_trials": n_trials,
             "presentation_time": presentation_time,
             "interstimulus": interstimulus,
         }, None
+
+    def _validate(self):
+        base, error = self._base_fields()
+        if error:
+            return None, error
+        try:
+            n_trials = int(self.n_trials_box.text)
+        except ValueError:
+            return None, "Número de tentativas deve ser um número."
+        if n_trials <= 0 or n_trials % self.variant != 0:
+            return None, f"Número de tentativas deve ser positivo e múltiplo de {self.variant}."
+        return {**base, "n_trials": n_trials}, None
+
+    def _validate_practice(self):
+        """Same required fields as 'Começar', but always runs a short
+        practice block instead of the typed number of trials: the
+        smallest multiple of the chosen variant that is at least
+        PRACTICE_TRIALS, so every shape appears at least once (the
+        shape-balancing loop in background.py never ends otherwise)."""
+        base, error = self._base_fields()
+        if error:
+            return None, error
+        reps = -(-PRACTICE_TRIALS // self.variant)  # ceil division
+        n_trials = self.variant * reps
+        return {**base, "n_trials": n_trials, "practice": True}, None
 
     def run(self):
         clock = pygame.time.Clock()
@@ -112,12 +142,14 @@ class SettingsScreen:
                     self.variant = 6
 
                 if self.start_btn.clicked(event):
-                    submit = True
+                    submit = self._validate
+                if self.practice_btn.clicked(event):
+                    submit = self._validate_practice
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
-                    submit = True
+                    submit = self._validate
 
             if submit:
-                config, error = self._validate()
+                config, error = submit()
                 if config:
                     return config
                 self.error = error
@@ -146,6 +178,7 @@ class SettingsScreen:
         self.variant_6_btn.draw(self.win)
 
         self.start_btn.draw(self.win)
+        self.practice_btn.draw(self.win)
 
         if self.error:
             err = LABEL_FONT.render(self.error, True, ERROR_COLOR)

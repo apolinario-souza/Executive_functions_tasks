@@ -35,6 +35,11 @@ DEFAULTS = {
 
 #Fixed task parameter (not exposed in the settings screen)
 PERC_SWITCHES = .5
+# Minimum trials run by the "Familiarização" button. The settings screen
+# rounds this up to a multiple of the chosen variant (2 or 6 shapes) so
+# every shape appears at least once — target_control() in background.py
+# loops forever otherwise.
+PRACTICE_TRIALS = 4
 
 #Data root: each variant's img/ and trials/ live one level below here
 BASE_DIR = Path(__file__).resolve().parent.parent

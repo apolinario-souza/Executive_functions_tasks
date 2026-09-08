@@ -14,10 +14,10 @@ INSTRUCTIONS_DIR = BASE_DIR.parent / "instrucao"
 # instructions video). Abstract Shapes has two variants with separate
 # videos; the "?" button here opens the two-shapes one.
 TASKS = [
-    ("Abstract Shapes", BASE_DIR / "Abstract_Shapes" / "main.py", INSTRUCTIONS_DIR / "Abstract_2.webm"),
-    ("Arrows", BASE_DIR / "Arrows" / "main.py", INSTRUCTIONS_DIR / "Arrows.webm"),
-    ("Dots", BASE_DIR / "Dots" / "main.py", INSTRUCTIONS_DIR / "Dots.webm"),
-    ("Pictures", BASE_DIR / "Pictures" / "main.py", INSTRUCTIONS_DIR / "Pictures.webm"),
+    ("Arrows", BASE_DIR / "Arrows" / "main.py", INSTRUCTIONS_DIR / "Arrows.mp4"),
+    ("Dots", BASE_DIR / "Dots" / "main.py", INSTRUCTIONS_DIR / "Dots.mp4"),
+    ("Abstract Shapes", BASE_DIR / "Abstract_Shapes" / "main.py", INSTRUCTIONS_DIR / "Abstract_2.mp4"),
+    ("Pictures", BASE_DIR / "Pictures" / "main.py", INSTRUCTIONS_DIR / "Pictures.mp4"),
 ]
 
 #Configuration screen

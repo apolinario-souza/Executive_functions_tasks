@@ -51,10 +51,11 @@ class Button:
     """A clickable rectangle with a label; `selected` draws it highlighted
     (used for the 2/6 shapes toggle)."""
 
-    def __init__(self, x, y, w, h, label, selected=False):
+    def __init__(self, x, y, w, h, label, selected=False, font=None):
         self.rect = pygame.Rect(x, y, w, h)
         self.label = label
         self.selected = selected
+        self.font = font or FONT
 
     def clicked(self, event):
         return (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1
@@ -65,6 +66,6 @@ class Button:
         border = (255, 255, 255) if self.selected else (150, 150, 150)
         pygame.draw.rect(screen, bg, self.rect)
         pygame.draw.rect(screen, border, self.rect, 2)
-        txt = FONT.render(self.label, True, (255, 255, 255))
+        txt = self.font.render(self.label, True, (255, 255, 255))
         screen.blit(txt, (self.rect.centerx - txt.get_width() // 2,
                            self.rect.centery - txt.get_height() // 2))

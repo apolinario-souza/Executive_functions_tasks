@@ -19,44 +19,53 @@ pygame.init()
 
 
 def main():
-    settings = SettingsScreen(WIN, DEFAULTS)
-    config = settings.run()
-    if config is None:
-        pygame.quit()
-        sys.exit(0)
+    defaults = DEFAULTS
 
-    session = Session(config)
+    while True:
+        settings = SettingsScreen(WIN, defaults)
+        config = settings.run()
+        if config is None:
+            break
 
-    if not show_instructions(WIN, session):
-        pygame.quit()
-        sys.exit(0)
+        session = Session(config)
 
-    draw = Draw(WIN, session)
+        if not show_instructions(WIN, session):
+            break
 
-    run = True
-    clock = pygame.time.Clock()
+        draw = Draw(WIN, session)
 
-    while run:
-        clock.tick(FPS)
+        run = True
+        clock = pygame.time.Clock()
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+        while run:
+            clock.tick(FPS)
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    run = False
+
+            draw.update()
+
+            if draw.background.finished:
                 run = False
 
-        draw.update()
+        if not draw.background.finished:
+            break
 
-        if draw.background.finished:
-            run = False
+        if config.get("practice"):
+            # Practice round done: back to the settings screen (with the
+            # same values already filled in) so the experimenter can start
+            # the real task next.
+            defaults = config
+            continue
 
-    completed = draw.background.finished
-    pygame.quit()
-
-    if completed:
         # All trials done: score this subject and let the experimenter
         # choose where to save the processed summary.
         summary = summarize_subject(session)
         save_summary_dialog(summary, default_name=f"Pictures_SUJ{session.suj}.csv")
+        break
 
+    pygame.quit()
     sys.exit(0)
 
 main()

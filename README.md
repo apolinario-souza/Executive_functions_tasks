@@ -31,10 +31,11 @@ problema e como tentar de novo — veja também
 A forma mais prática de rodar várias tarefas seguidas com o mesmo
 participante é pelo **menu da bateria**: dê dois cliques em
 `Tarefas/Battery/Executable.bat`. Aparece uma tela com um botão para cada
-tarefa já modernizada (Abstract Shapes, Arrows, Dots, Pictures); ao clicar
-em um botão, o menu se fecha e aquela tarefa abre normalmente. Quando a
-tarefa termina (ou é fechada), o menu volta sozinho para você escolher a
-próxima. Esc ou fechar a janela do menu encerra a bateria.
+tarefa já modernizada, nesta ordem: Arrows, Dots, Abstract Shapes e
+Pictures; ao clicar em um botão, o menu se fecha e aquela tarefa abre
+normalmente. Quando a tarefa termina (ou é fechada), o menu volta sozinho
+para você escolher a próxima. Esc ou fechar a janela do menu encerra a
+bateria.
 
 Ao lado de cada botão de tarefa tem um botãozinho **"?"** — clique nele
 para assistir, antes de abrir a tarefa, ao vídeo de instruções daquela
@@ -54,7 +55,11 @@ Nas tarefas já modernizadas (veja tabela abaixo) o fluxo é:
 
 1. **Tela de configuração** — preencha o código do sujeito e os parâmetros
    da sessão (número de tentativas, tempo de apresentação, interstímulo
-   etc.) e clique em **Começar**.
+   etc.). Há dois botões: **Começar**, que roda a coleta com esses
+   parâmetros, e **Familiarização**, que roda só um bloco curto de 4
+   tentativas de treino (sem salvar CSV) para o participante praticar
+   antes da coleta valendo — ao terminar, a tela de configuração volta
+   para você clicar em Começar.
 2. **Tela de instruções** — mostra o mapeamento estímulo → tecla; o
    participante aperta a **barra de espaço** para iniciar.
 3. **Tentativas** — a tarefa roda sozinha até o fim e fecha automaticamente.
@@ -72,20 +77,12 @@ sujeito é definido editando `constants.py` (abra pelo atalho
 
 | Tarefa | Pastas/variantes | Front end novo? |
 |---|---|:---:|
-| Abstract Shapes | `two_shapes`, `six_shapes` | ✅ |
 | Arrows | (pasta única) | ✅ |
 | Dots | `congruent`, `incongruent`, `mixed` | ✅ |
+| Abstract Shapes | `two_shapes`, `six_shapes` | ✅ |
 | Pictures | (pasta única) | ✅ |
 | Flanker Test | `Tarefa_1`, `Tarefa_2`, `Tarefa_3` | ⏳ ainda não |
 | Go-No-Go | `tarefa_manual`, `tarefa_podal` | ⏳ ainda não |
-
-### Abstract Shapes (`Tarefas/Abstract_Shapes`)
-
-Tarefa de escolha forçada de duas alternativas: uma forma abstrata aparece
-à esquerda ou à direita da tela e o participante responde com a tecla
-correspondente (seta esquerda/direita). Existem duas variantes: **2
-formas** (uma forma por lado) e **6 formas** (três formas distintas por
-lado), com trocas pseudoaleatórias de estímulo entre tentativas.
 
 ### Arrows (`Tarefas/Arrows`)
 
@@ -103,6 +100,17 @@ condições:
 - **incongruent** — só estímulos sólidos (regra sempre "lado oposto");
 - **mixed** — listrado e sólido intercalados, exigindo alternar a regra a
   cada tentativa.
+
+### Abstract Shapes (`Tarefas/Abstract_Shapes`)
+
+Tarefa de escolha forçada de duas alternativas: uma forma abstrata aparece
+à esquerda ou à direita da tela e o participante responde com a tecla
+correspondente (seta esquerda/direita). Existem duas variantes: **2
+formas** (uma forma por lado) e **6 formas** (três formas distintas por
+lado), com trocas pseudoaleatórias de estímulo entre tentativas. Nesta
+tarefa, a Familiarização roda 6 tentativas (em vez de 4) quando a variante
+"6 formas" está selecionada, para garantir que toda forma apareça ao menos
+uma vez no treino.
 
 ### Pictures — efeito Simon (`Tarefas/Pictures`)
 

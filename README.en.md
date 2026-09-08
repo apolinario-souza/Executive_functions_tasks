@@ -32,11 +32,11 @@ explaining the problem and how to retry — see also
 
 The easiest way to run several tasks in a row with the same participant is
 the **battery menu**: double-click `Tarefas/Battery/Executable.bat`. It
-shows one button per already-modernized task (Abstract Shapes, Arrows,
-Dots, Pictures); clicking a button closes the menu and opens that task
-normally. Once the task finishes (or is closed), the menu comes back on
-its own so you can pick the next one. Esc, or closing the menu window,
-ends the battery session.
+shows one button per already-modernized task, in this order: Arrows,
+Dots, Abstract Shapes, and Pictures; clicking a button closes the menu
+and opens that task normally. Once the task finishes (or is closed), the
+menu comes back on its own so you can pick the next one. Esc, or closing
+the menu window, ends the battery session.
 
 Next to each task button there's a small **"?"** button — click it to
 watch that task's instructions video before opening it (videos live in
@@ -55,8 +55,12 @@ every task/variant lives in its own folder under `Tarefas/`, with an
 For the already-modernized tasks (see table below), the flow is:
 
 1. **Settings screen** — fill in the subject code and session parameters
-   (number of trials, presentation time, interstimulus interval, etc.) and
-   click **Começar** (Start).
+   (number of trials, presentation time, interstimulus interval, etc.).
+   There are two buttons: **Começar** (Start), which runs the real
+   session with those parameters, and **Familiarização**
+   (Familiarization), which runs a short 4-trial practice block (no CSV
+   saved) so the participant can practice before the real run — once it
+   finishes, the settings screen comes back so you can click Começar.
 2. **Instructions screen** — shows the stimulus → key mapping; the
    participant presses **spacebar** to begin.
 3. **Trials** — the task runs on its own until the end and then closes
@@ -75,20 +79,12 @@ set by editing `constants.py` (open it via the folder's
 
 | Task | Folders/variants | New front end? |
 |---|---|:---:|
-| Abstract Shapes | `two_shapes`, `six_shapes` | ✅ |
 | Arrows | (single folder) | ✅ |
 | Dots | `congruent`, `incongruent`, `mixed` | ✅ |
+| Abstract Shapes | `two_shapes`, `six_shapes` | ✅ |
 | Pictures | (single folder) | ✅ |
 | Flanker Test | `Tarefa_1`, `Tarefa_2`, `Tarefa_3` | ⏳ not yet |
 | Go-No-Go | `tarefa_manual`, `tarefa_podal` | ⏳ not yet |
-
-### Abstract Shapes (`Tarefas/Abstract_Shapes`)
-
-A two-alternative forced-choice task: an abstract shape appears on the
-left or right side of the screen, and the participant responds with the
-matching arrow key. Two variants: **two shapes** (one shape per side) and
-**six shapes** (three distinct shapes per side), with pseudorandom
-stimulus switches between trials.
 
 ### Arrows (`Tarefas/Arrows`)
 
@@ -105,6 +101,16 @@ Circles of dots (striped or solid/gray) appear on the left or right. Rule:
 - **incongruent** — solid stimuli only (rule is always "opposite side");
 - **mixed** — striped and solid interleaved, requiring the rule to switch
   from trial to trial.
+
+### Abstract Shapes (`Tarefas/Abstract_Shapes`)
+
+A two-alternative forced-choice task: an abstract shape appears on the
+left or right side of the screen, and the participant responds with the
+matching arrow key. Two variants: **two shapes** (one shape per side) and
+**six shapes** (three distinct shapes per side), with pseudorandom
+stimulus switches between trials. For this task, Familiarização runs 6
+practice trials (instead of 4) when the "six shapes" variant is selected,
+so every shape appears at least once during practice.
 
 ### Pictures — Simon effect (`Tarefas/Pictures`)
 

@@ -32,6 +32,7 @@ DEFAULTS = {
 #Fixed task parameters (not exposed in the settings screen)
 PERC_SWITCHES = .5
 N_CATEGORIES = 4  # frog/butterfly x left/right
+PRACTICE_TRIALS = 4  # trials run by the "Familiarização" button
 
 #Data root: img/ and trials/ live next to this task's main.py
 BASE_DIR = Path(__file__).resolve().parent.parent

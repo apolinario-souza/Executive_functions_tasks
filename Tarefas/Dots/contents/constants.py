@@ -36,6 +36,7 @@ DEFAULTS = {
 #Fixed task parameters (not exposed in the settings screen)
 PERC_SWITCHES = .5
 N_CATEGORIES = 4  # 2 screen sides x 2 dot textures
+PRACTICE_TRIALS = 4  # trials run by the "Familiarização" button
 
 #Data root: each condition's img/ and trials/ live one level below here
 BASE_DIR = Path(__file__).resolve().parent.parent
