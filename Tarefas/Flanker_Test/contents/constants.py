@@ -51,6 +51,18 @@ PERC_SWITCHES = .5
 #Data root: each condition's img/ and trials/ live one level below here
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Instruction videos, offered as buttons on the instructions screen
+# (contents/instructions_screen.py) so the experimenter can play any of
+# them just before starting. Kept here (instead of only in the Battery
+# launcher) so they're reachable from Flanker's own screen; order matches
+# how they're shown: geral, rosa, azul.
+VIDEO_DIR = BASE_DIR.parent.parent / "instrucao"
+INSTRUCTION_VIDEOS = {
+    "geral": VIDEO_DIR / "gerais_flaker.mp4",
+    "rosa": VIDEO_DIR / "Flaker_rosa.mp4",
+    "azul": VIDEO_DIR / "Flaker_azul.mp4",
+}
+
 #Configuration screen
 screen = pygame.display.set_mode()
 WIDTH, HEIGHT = screen.get_size()

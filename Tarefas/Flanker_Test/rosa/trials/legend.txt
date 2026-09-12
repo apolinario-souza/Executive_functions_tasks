@@ -1,2 +1,5 @@
-1 = todos para esq.; 2 = laterais esquerda; 3 = todos para direita; 4 = laterais para esquerda 
- 0 = key left; 1 = key right; -1 = no key
+1 = rosa, todos, esquerda
+2 = rosa, lateral (centro diverge), esquerda
+3 = rosa, todos, direita
+4 = rosa, lateral (centro diverge), direita
+0 = tecla esquerda; 1 = tecla direita; -1 = sem resposta

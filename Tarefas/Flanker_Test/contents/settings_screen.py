@@ -61,6 +61,17 @@ class SettingsScreen:
         self.fields = [self.suj_box, self.n_trials_box, self.presentation_box,
                         self.interstimulus_box, self.feedback_box]
 
+        # "Sem feedback" toggle: zeroes and locks the feedback-time box so
+        # the participant runs without the happy/sad face screen. Turning
+        # it back off restores whatever value was there before.
+        self.no_feedback = bool(defaults.get("no_feedback", False))
+        self._feedback_backup = self.feedback_box.text if self.feedback_box.text != "0" else "1500"
+        self.no_feedback_btn = Button(cx + box_w // 2 + 12, self.top + self.gap * 5, 150, box_h,
+                                       "Sem feedback", selected=self.no_feedback, font=CONDITION_FONT)
+        if self.no_feedback:
+            self.feedback_box.set_text("0")
+            self.feedback_box.set_enabled(False)
+
         btn_row_y = self.top + self.gap * 6 + 20
         half_btn_w = (box_w - 10) // 2
         self.start_btn = Button(cx - box_w // 2, btn_row_y, half_btn_w, box_h,
@@ -105,6 +116,7 @@ class SettingsScreen:
             "presentation_time": presentation_time,
             "interstimulus": interstimulus,
             "feedback_time": feedback_time,
+            "no_feedback": self.no_feedback,
         }, None
 
     def _validate(self):
@@ -156,6 +168,17 @@ class SettingsScreen:
                     if btn.clicked(event):
                         self.condition = cond
 
+                if self.no_feedback_btn.clicked(event):
+                    self.no_feedback = not self.no_feedback
+                    if self.no_feedback:
+                        if self.feedback_box.text != "0":
+                            self._feedback_backup = self.feedback_box.text
+                        self.feedback_box.set_text("0")
+                        self.feedback_box.set_enabled(False)
+                    else:
+                        self.feedback_box.set_enabled(True)
+                        self.feedback_box.set_text(self._feedback_backup)
+
                 if self.start_btn.clicked(event):
                     submit = self._validate
                 if self.practice_btn.clicked(event):
@@ -190,6 +213,8 @@ class SettingsScreen:
         for cond, btn in self.condition_btns.items():
             btn.selected = self.condition == cond
             btn.draw(self.win)
+
+        self.no_feedback_btn.draw(self.win)
 
         self.start_btn.draw(self.win)
         self.practice_btn.draw(self.win)

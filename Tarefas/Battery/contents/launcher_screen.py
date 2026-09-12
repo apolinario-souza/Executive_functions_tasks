@@ -19,10 +19,11 @@ FOOTER_TEXT = "Desenvolvido por Tércio Apolinário-Souza — edf.tercio@gmail.c
 
 class LauncherScreen:
     """Battery menu: one button per task, plus a small "?" button next to
-    each one that opens that task's instructions video. Clicking a task
-    button hides this window, runs that task's main.py as a subprocess and
-    waits for it to close, then brings this menu back so another task can
-    be picked."""
+    each one that has an instructions video (some tasks, like Flanker
+    Test, show their own instead — see TASKS in contents/constants.py).
+    Clicking a task button hides this window, runs that task's main.py as
+    a subprocess and waits for it to close, then brings this menu back so
+    another task can be picked."""
 
     def __init__(self):
         self.win = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -38,7 +39,8 @@ class LauncherScreen:
         for i, (label, main_path, video_path) in enumerate(TASKS):
             rect_y = self.top + i * (btn_h + gap)
             task_btn = Button(row_x, rect_y, btn_w, btn_h, label, font=BUTTON_FONT)
-            question_btn = Button(row_x + btn_w + small_gap, rect_y, q_w, btn_h, "?", font=QUESTION_FONT)
+            question_btn = (Button(row_x + btn_w + small_gap, rect_y, q_w, btn_h, "?", font=QUESTION_FONT)
+                             if video_path is not None else None)
             self.rows.append((task_btn, main_path, question_btn, video_path))
 
         self.note = ""
@@ -71,7 +73,7 @@ class LauncherScreen:
                 for task_btn, main_path, question_btn, video_path in self.rows:
                     if task_btn.clicked(event):
                         self._launch(main_path)
-                    if question_btn.clicked(event):
+                    if question_btn is not None and question_btn.clicked(event):
                         open_video(video_path)
 
             self._draw()
@@ -88,7 +90,8 @@ class LauncherScreen:
 
         for task_btn, _, question_btn, _ in self.rows:
             task_btn.draw(self.win)
-            question_btn.draw(self.win)
+            if question_btn is not None:
+                question_btn.draw(self.win)
 
         if self.note:
             note = FOOTER_FONT.render(self.note, True, NOTE_COLOR)

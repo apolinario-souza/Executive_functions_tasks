@@ -13,20 +13,32 @@ class InputBox:
     already used in Dots/incongruent/contents/textInput.py, generalized
     with an optional numeric-only filter."""
 
-    def __init__(self, x, y, w, h, text='', numeric=False, max_len=20):
+    def __init__(self, x, y, w, h, text='', numeric=False, max_len=20, enabled=True):
         self.rect = pygame.Rect(x, y, w, h)
         self.numeric = numeric
         self.max_len = max_len
         self.text = text
         self.active = False
+        self.enabled = enabled
         self.box_color = COLOR_INACTIVE
         self.txt_surface = FONT.render(self.text, True, COLOR_TEXT)
 
+    def set_text(self, text):
+        self.text = text
+        self.txt_surface = FONT.render(self.text, True, COLOR_TEXT)
+
+    def set_enabled(self, enabled):
+        self.enabled = enabled
+        if not enabled:
+            self.set_active(False)
+
     def set_active(self, active):
-        self.active = active
-        self.box_color = COLOR_ACTIVE if active else COLOR_INACTIVE
+        self.active = active and self.enabled
+        self.box_color = COLOR_ACTIVE if self.active else COLOR_INACTIVE
 
     def handle_event(self, event):
+        if not self.enabled:
+            return
         if event.type == pygame.MOUSEBUTTONDOWN:
             self.set_active(self.rect.collidepoint(event.pos))
         if event.type == pygame.KEYDOWN and self.active:
@@ -44,7 +56,8 @@ class InputBox:
         pygame.draw.rect(screen, (30, 30, 30), self.rect)
         screen.blit(self.txt_surface, (self.rect.x + 8,
                                         self.rect.y + (self.rect.h - self.txt_surface.get_height()) // 2))
-        pygame.draw.rect(screen, self.box_color, self.rect, 2)
+        border = self.box_color if self.enabled else (80, 80, 80)
+        pygame.draw.rect(screen, border, self.rect, 2)
 
 
 class Button:
