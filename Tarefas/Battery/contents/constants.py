@@ -18,6 +18,7 @@ TASKS = [
     ("Dots", BASE_DIR / "Dots" / "main.py", INSTRUCTIONS_DIR / "Dots.mp4"),
     ("Abstract Shapes", BASE_DIR / "Abstract_Shapes" / "main.py", INSTRUCTIONS_DIR / "Abstract_2.mp4"),
     ("Pictures", BASE_DIR / "Pictures" / "main.py", INSTRUCTIONS_DIR / "Pictures.mp4"),
+    ("Flanker Test", BASE_DIR / "Flanker_Test" / "main.py", INSTRUCTIONS_DIR / "gerais_flaker.mp4"),
 ]
 
 #Configuration screen

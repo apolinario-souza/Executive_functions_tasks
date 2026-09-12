@@ -387,13 +387,18 @@ durante a coleta e depende também de <code>opencv-python</code>
 <p>A forma mais prática de rodar várias tarefas seguidas com o mesmo
 participante é pelo <strong>menu da bateria</strong>: dê dois cliques em
 <code>Tarefas/Battery/Executable.bat</code>. Aparece uma tela com um
-botão para cada tarefa já modernizada (Abstract Shapes, Arrows, Dots,
-Pictures); ao clicar em um botão, o menu se fecha e aquela tarefa abre
-normalmente. Quando a tarefa termina (ou é fechada), o menu volta
-sozinho para você escolher a próxima. Esc ou fechar a janela do menu
-encerra a bateria.</p>
-<p>Flanker Test e Go-No-Go ainda não aparecem no menu — só entram quando
-passarem pela mesma modernização das outras quatro.</p>
+botão para cada tarefa já modernizada, nesta ordem: Arrows, Dots,
+Abstract Shapes, Pictures e Flanker Test; ao clicar em um botão, o menu
+se fecha e aquela tarefa abre normalmente. Quando a tarefa termina (ou é
+fechada), o menu volta sozinho para você escolher a próxima. Esc ou
+fechar a janela do menu encerra a bateria.</p>
+<p>Ao lado de cada botão de tarefa tem um botãozinho
+<strong>“?”</strong> — clique nele para assistir, antes de abrir a
+tarefa, ao vídeo de instruções daquela tarefa (os vídeos ficam em
+<code>instrucao/</code>). Ele abre no player de vídeo padrão do
+computador, sem fechar o menu.</p>
+<p>Go-No-Go ainda não aparece no menu — só entra quando passar pela
+mesma modernização das outras cinco.</p>
 </div>
 <div id="como-rodar-uma-tarefa" class="section level2">
 <h2>Como rodar uma tarefa</h2>
@@ -406,7 +411,11 @@ abrir a tarefa.</p>
 <ol style="list-style-type: decimal">
 <li><strong>Tela de configuração</strong> — preencha o código do sujeito
 e os parâmetros da sessão (número de tentativas, tempo de apresentação,
-interstímulo etc.) e clique em <strong>Começar</strong>.</li>
+interstímulo etc.). Há dois botões: <strong>Começar</strong>, que roda a
+coleta com esses parâmetros, e <strong>Familiarização</strong>, que roda
+só um bloco curto de 4 tentativas de treino (sem salvar CSV) para o
+participante praticar antes da coleta valendo — ao terminar, a tela de
+configuração volta para você clicar em Começar.</li>
 <li><strong>Tela de instruções</strong> — mostra o mapeamento estímulo →
 tecla; o participante aperta a <strong>barra de espaço</strong> para
 iniciar.</li>
@@ -434,19 +443,19 @@ sujeito é definido editando <code>constants.py</code> (abra pelo atalho
 </thead>
 <tbody>
 <tr class="odd">
-<td>Abstract Shapes</td>
-<td><code>two_shapes</code>, <code>six_shapes</code></td>
-<td align="center">✅</td>
-</tr>
-<tr class="even">
 <td>Arrows</td>
 <td>(pasta única)</td>
 <td align="center">✅</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Dots</td>
 <td><code>congruent</code>, <code>incongruent</code>,
 <code>mixed</code></td>
+<td align="center">✅</td>
+</tr>
+<tr class="odd">
+<td>Abstract Shapes</td>
+<td><code>two_shapes</code>, <code>six_shapes</code></td>
 <td align="center">✅</td>
 </tr>
 <tr class="even">
@@ -456,9 +465,8 @@ sujeito é definido editando <code>constants.py</code> (abra pelo atalho
 </tr>
 <tr class="odd">
 <td>Flanker Test</td>
-<td><code>Tarefa_1</code>, <code>Tarefa_2</code>,
-<code>Tarefa_3</code></td>
-<td align="center">⏳ ainda não</td>
+<td><code>azul</code>, <code>rosa</code>, <code>mixed</code></td>
+<td align="center">✅</td>
 </tr>
 <tr class="even">
 <td>Go-No-Go</td>
@@ -467,15 +475,6 @@ sujeito é definido editando <code>constants.py</code> (abra pelo atalho
 </tr>
 </tbody>
 </table>
-<div id="abstract-shapes-tarefasabstract_shapes" class="section level3">
-<h3>Abstract Shapes (<code>Tarefas/Abstract_Shapes</code>)</h3>
-<p>Tarefa de escolha forçada de duas alternativas: uma forma abstrata
-aparece à esquerda ou à direita da tela e o participante responde com a
-tecla correspondente (seta esquerda/direita). Existem duas variantes:
-<strong>2 formas</strong> (uma forma por lado) e <strong>6
-formas</strong> (três formas distintas por lado), com trocas
-pseudoaleatórias de estímulo entre tentativas.</p>
-</div>
 <div id="arrows-tarefasarrows" class="section level3">
 <h3>Arrows (<code>Tarefas/Arrows</code>)</h3>
 <p>Uma seta aparece de um dos lados da cruz central, apontando para
@@ -493,6 +492,18 @@ estímulos listrados (regra sempre “mesmo lado”); -
 oposto”); - <strong>mixed</strong> — listrado e sólido intercalados,
 exigindo alternar a regra a cada tentativa.</p>
 </div>
+<div id="abstract-shapes-tarefasabstract_shapes" class="section level3">
+<h3>Abstract Shapes (<code>Tarefas/Abstract_Shapes</code>)</h3>
+<p>Tarefa de escolha forçada de duas alternativas: uma forma abstrata
+aparece à esquerda ou à direita da tela e o participante responde com a
+tecla correspondente (seta esquerda/direita). Existem duas variantes:
+<strong>2 formas</strong> (uma forma por lado) e <strong>6
+formas</strong> (três formas distintas por lado), com trocas
+pseudoaleatórias de estímulo entre tentativas. Nesta tarefa, a
+Familiarização roda 6 tentativas (em vez de 4) quando a variante “6
+formas” está selecionada, para garantir que toda forma apareça ao menos
+uma vez no treino.</p>
+</div>
 <div id="pictures-efeito-simon-tarefaspictures" class="section level3">
 <h3>Pictures — efeito Simon (<code>Tarefas/Pictures</code>)</h3>
 <p>Um sapo ou uma borboleta aparece à esquerda ou à direita. Borboleta =
@@ -506,8 +517,11 @@ com a tecla certa).</p>
 tela e o participante responde à direção para onde aponta o peixe
 <strong>central</strong>, ignorando os peixes ao redor (congruentes
 quando todos apontam para o mesmo lado, incongruentes quando o central
-diverge). <code>Tarefa_1</code> usa a versão azul, <code>Tarefa_2</code>
-a versão rosa, <code>Tarefa_3</code> mistura as duas.</p>
+diverge). Três condições: <code>azul</code> (só a versão azul),
+<code>rosa</code> (só a versão rosa) e <code>mixed</code> (mistura as
+duas, alternando entre elas de tentativa em tentativa). Tem uma tela
+extra de feedback (rosto feliz/triste) depois de cada resposta, com
+duração configurável na tela de configuração (pode zerar).</p>
 </div>
 <div id="go-no-go-tarefasgo-no-go" class="section level3">
 <h3>Go-No-Go (<code>Tarefas/Go-No-Go</code>)</h3>

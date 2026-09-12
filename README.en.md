@@ -33,7 +33,7 @@ explaining the problem and how to retry — see also
 The easiest way to run several tasks in a row with the same participant is
 the **battery menu**: double-click `Tarefas/Battery/Executable.bat`. It
 shows one button per already-modernized task, in this order: Arrows,
-Dots, Abstract Shapes, and Pictures; clicking a button closes the menu
+Dots, Abstract Shapes, Pictures, and Flanker Test; clicking a button closes the menu
 and opens that task normally. Once the task finishes (or is closed), the
 menu comes back on its own so you can pick the next one. Esc, or closing
 the menu window, ends the battery session.
@@ -43,8 +43,8 @@ watch that task's instructions video before opening it (videos live in
 `instrucao/`). It opens in the computer's default video player without
 closing the menu.
 
-Flanker Test and Go-No-Go aren't in the menu yet — they'll be added once
-they go through the same modernization as the other four.
+Go-No-Go isn't in the menu yet — it'll be added once it goes through the
+same modernization as the other five.
 
 ## Running a task
 
@@ -83,7 +83,7 @@ set by editing `constants.py` (open it via the folder's
 | Dots | `congruent`, `incongruent`, `mixed` | ✅ |
 | Abstract Shapes | `two_shapes`, `six_shapes` | ✅ |
 | Pictures | (single folder) | ✅ |
-| Flanker Test | `Tarefa_1`, `Tarefa_2`, `Tarefa_3` | ⏳ not yet |
+| Flanker Test | `azul`, `rosa`, `mixed` | ✅ |
 | Go-No-Go | `tarefa_manual`, `tarefa_podal` | ⏳ not yet |
 
 ### Arrows (`Tarefas/Arrows`)
@@ -124,8 +124,11 @@ key).
 A fish flanker task: a row of 5 fish appears on screen, and the
 participant responds to the direction the **center** fish points,
 ignoring the surrounding ones (congruent when all fish point the same
-way, incongruent when the center one diverges). `Tarefa_1` is the blue
-version, `Tarefa_2` the pink version, `Tarefa_3` mixes both.
+way, incongruent when the center one diverges). Three conditions:
+`azul` (blue only), `rosa` (pink only) and `mixed` (alternates between
+both, trial by trial). There's an extra feedback screen (happy/sad face)
+after each response, with a configurable duration on the settings screen
+(can be set to zero).
 
 ### Go-No-Go (`Tarefas/Go-No-Go`)
 

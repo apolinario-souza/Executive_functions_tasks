@@ -31,8 +31,8 @@ problema e como tentar de novo — veja também
 A forma mais prática de rodar várias tarefas seguidas com o mesmo
 participante é pelo **menu da bateria**: dê dois cliques em
 `Tarefas/Battery/Executable.bat`. Aparece uma tela com um botão para cada
-tarefa já modernizada, nesta ordem: Arrows, Dots, Abstract Shapes e
-Pictures; ao clicar em um botão, o menu se fecha e aquela tarefa abre
+tarefa já modernizada, nesta ordem: Arrows, Dots, Abstract Shapes,
+Pictures e Flanker Test; ao clicar em um botão, o menu se fecha e aquela tarefa abre
 normalmente. Quando a tarefa termina (ou é fechada), o menu volta sozinho
 para você escolher a próxima. Esc ou fechar a janela do menu encerra a
 bateria.
@@ -42,8 +42,8 @@ para assistir, antes de abrir a tarefa, ao vídeo de instruções daquela
 tarefa (os vídeos ficam em `instrucao/`). Ele abre no player de vídeo
 padrão do computador, sem fechar o menu.
 
-Flanker Test e Go-No-Go ainda não aparecem no menu — só entram quando
-passarem pela mesma modernização das outras quatro.
+Go-No-Go ainda não aparece no menu — só entra quando passar pela mesma
+modernização das outras cinco.
 
 ## Como rodar uma tarefa
 
@@ -81,7 +81,7 @@ sujeito é definido editando `constants.py` (abra pelo atalho
 | Dots | `congruent`, `incongruent`, `mixed` | ✅ |
 | Abstract Shapes | `two_shapes`, `six_shapes` | ✅ |
 | Pictures | (pasta única) | ✅ |
-| Flanker Test | `Tarefa_1`, `Tarefa_2`, `Tarefa_3` | ⏳ ainda não |
+| Flanker Test | `azul`, `rosa`, `mixed` | ✅ |
 | Go-No-Go | `tarefa_manual`, `tarefa_podal` | ⏳ ainda não |
 
 ### Arrows (`Tarefas/Arrows`)
@@ -124,8 +124,11 @@ tecla certa).
 Tarefa de flanker com peixinhos: uma fileira de 5 peixes aparece na tela e
 o participante responde à direção para onde aponta o peixe **central**,
 ignorando os peixes ao redor (congruentes quando todos apontam para o
-mesmo lado, incongruentes quando o central diverge). `Tarefa_1` usa a
-versão azul, `Tarefa_2` a versão rosa, `Tarefa_3` mistura as duas.
+mesmo lado, incongruentes quando o central diverge). Três condições:
+`azul` (só a versão azul), `rosa` (só a versão rosa) e `mixed` (mistura
+as duas, alternando entre elas de tentativa em tentativa). Tem uma tela
+extra de feedback (rosto feliz/triste) depois de cada resposta, com
+duração configurável na tela de configuração (pode zerar).
 
 ### Go-No-Go (`Tarefas/Go-No-Go`)
 
