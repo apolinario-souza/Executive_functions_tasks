@@ -1,16 +1,32 @@
 Como instalar (Windows)
 ========================
 
+Antes de tudo: baixar o programa
+---------------------------------
+1. No site do GitHub do programa, clique no botão verde "Code" e depois
+   em "Download ZIP".
+2. Abra a pasta Downloads, clique com o botão direito no arquivo .zip
+   que foi baixado e escolha "Extrair tudo..." e depois "Extrair".
+   IMPORTANTE: não rode o programa de dentro do .zip, ele não funciona
+   assim. Use sempre a pasta que foi extraída.
+3. Se quiser, mova a pasta extraída para Documentos.
+
+Instalar
+---------
 1. Verifique se o computador está conectado à internet.
-2. Dê dois cliques no arquivo "instalacao.bat" (nesta mesma pasta).
+2. Dentro da pasta do programa, abra a pasta "Instalar_Win" e dê dois
+   cliques no arquivo "instalacao.bat".
+   Se o Windows mostrar "O Windows protegeu o computador", clique em
+   "Mais informações" e depois em "Executar assim mesmo".
 3. Aguarde. A janela preta vai mostrar o andamento sozinha — não é
    preciso clicar em nada, só esperar até aparecer a mensagem:
    "Instalacao concluida com sucesso!"
-4. Aperte qualquer tecla para fechar a janela.
+4. Aperte qualquer tecla: o programa abre sozinho.
 
-Pronto! Agora é só abrir qualquer tarefa clicando duas vezes no arquivo
-"Executable.bat" que fica dentro da pasta de cada tarefa
-(ex: Tarefas\Abstract_Shapes\two_shapes\Executable.bat).
+Pronto! Das próximas vezes, é só dar dois cliques no ícone
+"Bateria de Funções Executivas" que foi criado na área de trabalho.
+(Se o ícone não aparecer, dê dois cliques em "INICIAR_BATERIA.bat",
+na pasta do programa.)
 
 
 Se der algum erro
@@ -27,4 +43,6 @@ O que esse arquivo instala
 ----------------------------
 - Python 3.11 (se ainda não estiver instalado no computador)
 - As bibliotecas Python usadas pelas tarefas: numpy, pygame, pandas e
-  opencv-python (usada na tarefa Go-No-Go podal, que grava vídeo)
+  openpyxl (usada para salvar a planilha de resultados)
+- O ícone "Bateria de Funções Executivas" na área de trabalho e no menu
+  Iniciar

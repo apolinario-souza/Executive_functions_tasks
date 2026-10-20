@@ -1,2 +1,2 @@
 @echo off
-py main.py
+call "%~dp0..\..\INICIAR_BATERIA.bat"

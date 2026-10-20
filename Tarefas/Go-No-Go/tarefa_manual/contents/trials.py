@@ -25,6 +25,9 @@ def run_trials(win, session):
 
     data = []
     for trial, num in enumerate(session.sequence, start=1):
+        # Drop keys pressed during the previous feedback, so they don't
+        # count as an instant answer to this number
+        pygame.event.clear(pygame.KEYDOWN)
         win.fill(BLACK)
         _blit_center(win, NUMBER_FONT.render(num, True, (255, 255, 255)))
         pygame.display.flip()
