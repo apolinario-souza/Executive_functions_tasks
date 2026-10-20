@@ -1,0 +1,7 @@
+# Dados de participantes: ficam só no computador da coleta, nunca no GitHub
+Tarefas/**/trials/SUJ*.csv
+Tarefas/Arrows/sujeitos/
+Tarefas/Go-No-Go/**/*_resultados.xlsx
+
+__pycache__/
+*.pyc
