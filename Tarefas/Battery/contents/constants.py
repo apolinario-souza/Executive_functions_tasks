@@ -93,12 +93,16 @@ RAW_FILES = {
 
 # Result columns worth showing right after a task, with friendly names
 RESULT_NAMES = {
+    "pct_corretas": "% de acerto",
+    "tr_mediana": "Tempo de reação (ms)",
     "n_corretas": "Acertos",
     "n_erradas": "Erros",
+    "n_antecipadas": "Antecipadas",
     "n_omissas": "Sem resposta",
     "acertos_go": "Acertos no 6",
     "falsos_alarmes": "Apertou sem ser 6",
     "omissoes_go": "Não apertou no 6",
+    "tr_mediana_go": "Tempo de reação no 6 (ms)",
 }
 
 # Colors (same dark look as the tasks)

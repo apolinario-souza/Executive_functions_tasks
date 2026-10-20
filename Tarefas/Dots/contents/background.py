@@ -66,6 +66,9 @@ class switches:
             return sequence
 
 
+_IMAGE_CACHE = {}  # (path, size) -> scaled image, see Background.img
+
+
 class Background:
     def __init__(self, session):
         self.session = session
@@ -95,9 +98,12 @@ class Background:
         pygame.draw.line(win, (0, 0, 0), (L2_starX,L2_startY), (L2_endX,L2_endY),width )
 
     def img (self, win, pos_x, pos_y, diameter,  img):
-        image = pygame.image.load(img)
-        image = pygame.transform.scale(image, (diameter, diameter))
-        win.blit(image, (pos_x, pos_y))
+        # Loaded and scaled once, not on every frame, so frames stay short
+        # and the recorded times stay precise
+        key = (img, diameter)
+        if key not in _IMAGE_CACHE:
+            _IMAGE_CACHE[key] = pygame.transform.scale(pygame.image.load(img), (diameter, diameter))
+        win.blit(_IMAGE_CACHE[key], (pos_x, pos_y))
 
     def stimulus_image_path(self, value):
         texture = stimulus_texture(self.session.condition, value)
@@ -146,7 +152,7 @@ class Background:
             time = []
             for i in range (len(self.current_time)):
                 self.target.append(self.sequence[self.trial])
-                time.append(5*i)
+                time.append(self.current_time[i] - self.current_time[0])  # real ms since the trial began
 
             trial_path = self.session.trials_dir / ('SUJ'+str(self.session.suj)+'_trial'+str(self.trial)+'.csv')
             np.savetxt(str(trial_path), np.column_stack([time,self.key, self.target] ), header = ','.join(names), delimiter=',')

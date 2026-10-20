@@ -3,6 +3,7 @@ the number 6 is the "go" trial (press Space), every other number is
 "no-go" (don't press)."""
 import csv
 import json
+import statistics
 import tkinter as tk
 from tkinter import filedialog
 
@@ -31,7 +32,8 @@ def summarize_subject(session, data):
         "omissoes_go": sum(row[2] == "Não" for row in go),
         "falsos_alarmes": sum(row[2] == "Sim" for row in no_go),
         "rejeicoes_corretas": sum(row[2] == "Não" for row in no_go),
-        "tr_medio_go": sum(rts) / len(rts) if rts else float("nan"),
+        "tr_mediana_go": round(statistics.median(rts), 1) if rts else float("nan"),
+        "tr_medio_go": round(sum(rts) / len(rts), 1) if rts else float("nan"),
     }
 
 

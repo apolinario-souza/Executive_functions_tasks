@@ -5,3 +5,6 @@ Tarefas/Go-No-Go/**/*_resultados.xlsx
 
 __pycache__/
 *.pyc
+
+# Saída do processar_dados/corrigir_tempo_dados_antigos.py (também são dados de participantes)
+dados_corrigidos/

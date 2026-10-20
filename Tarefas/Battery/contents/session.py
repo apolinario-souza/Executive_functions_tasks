@@ -7,6 +7,7 @@ import threading
 import tkinter as tk
 from datetime import datetime
 
+from .comparisons import comparisons
 from .constants import RAW_FILES, RESULT_NAMES
 
 
@@ -95,8 +96,9 @@ class Session:
         return f"Bateria_SUJ{self.subject.get().strip()}_{datetime.now():%Y-%m-%d}.xlsx"
 
     def save_results(self, path):
-        """One workbook: a 'Sessão' sheet with one friendly row per task,
-        then one sheet per task with its full summary."""
+        """One workbook: a 'Sessão' sheet with one friendly row per task, a
+        'Comparações' sheet with the measures that combine two tasks (when
+        both were done), then one sheet per task with its full summary."""
         import pandas as pd
 
         rows = []
@@ -108,6 +110,9 @@ class Session:
 
         with pd.ExcelWriter(path, engine="openpyxl") as writer:
             pd.DataFrame(rows).to_excel(writer, sheet_name="Sessão", index=False)
+            between = comparisons(self.results)
+            if between:
+                pd.DataFrame(between).to_excel(writer, sheet_name="Comparações", index=False)
             for task, ended, summary in self.results.values():
                 pd.DataFrame([summary]).to_excel(writer, sheet_name=task.key, index=False)
         self.saved = True
