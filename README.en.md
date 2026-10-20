@@ -5,86 +5,125 @@
 A collection of computerized tasks (Python + Pygame) for assessing
 executive functions: reaction time, inhibition, cognitive flexibility, and
 Simon/flanker effects. Each task runs full-screen, records the
-participant's responses to CSV, and — for the tasks already modernized —
-automatically scores the session and lets you save a summary at the end.
+participant's responses and automatically scores the session at the end.
+A menu with a **guided mode** walks through the session step by step for
+people with little computer experience.
 
 ## Installation (Windows)
 
+### 1. Download the program
+
+1. On this GitHub page, click the green **Code** button, then
+   **Download ZIP**.
+2. Open the **Downloads** folder, right-click the `.zip` file and choose
+   **Extract All...** → **Extract**.
+   **Don't run the program from inside the `.zip`**: always use the
+   extracted folder.
+
+### 2. Install
+
 1. Make sure the computer is connected to the internet.
-2. Go to the `Instalar_Win` folder and double-click **`instalacao.bat`**.
-3. Wait — the window shows progress on its own, no clicking needed. When
-   you see **"Instalacao concluida com sucesso!"**, press any key to close
-   it.
+2. In the program folder, open `Instalar_Win` and double-click
+   **`instalacao.bat`**. (If Windows says "Windows protected your PC",
+   click **More info** → **Run anyway**.)
+3. Wait — the window shows the progress on its own, no clicking needed.
+   When **"Instalação concluída com sucesso!"** appears, press any key:
+   the program opens by itself.
 
-This installs (if not already present): Python 3.11 and the `numpy`,
-`pygame`, and `pandas` libraries. Messages are in Portuguese (the target
-audience for this installer), but the flow is fully automatic.
+This installs (if not already installed) Python 3.11 and the `numpy`,
+`pygame`, `pandas` and `openpyxl` libraries, and creates the
+**Bateria de Funções Executivas** icon on the desktop and in the Start
+menu. From then on, just double-click that icon (or
+`INICIAR_BATERIA.bat`, in the program folder).
 
-If something goes wrong, the script prints a plain-language message
+If something goes wrong, the script shows a message in Portuguese
 explaining the problem and how to retry — see also
 `Instalar_Win/Passo_a_passo_intalacao_requisitos.txt`.
 
-> `Go-No-Go/tarefa_podal` records webcam video during data collection and
-> also depends on `opencv-python` (`cv2`) — the installer already covers
-> this.
+## Using the program
 
-## Opening the battery menu
+### Guided mode
 
-The easiest way to run several tasks in a row with the same participant is
-the **battery menu**: double-click `Tarefas/Battery/Executable.bat`. It
-shows one button per already-modernized task, in this order: Arrows,
-Dots, Abstract Shapes, Pictures, and Flanker Test; clicking a button closes the menu
-and opens that task normally. Once the task finishes (or is closed), the
-menu comes back on its own so you can pick the next one. Esc, or closing
-the menu window, ends the battery session.
+The program opens in **guided mode**, made for people with little
+computer experience: one thing per screen, large text and buttons, and
+**Voltar** (Back) / **Continuar** (Continue) always in the same place.
 
-Next to each task button there's a small **"?"** button — click it to
-watch that task's instructions video before opening it (videos live in
-`instrucao/`). It opens in the computer's default video player without
-closing the menu.
+1. **Participant** — type the participant code (only once for the whole
+   session).
 
-Go-No-Go isn't in the menu yet — it'll be added once it goes through the
-same modernization as the other five.
+   ![Participant code](docs/img/guiado_participante.png)
 
-## Running a task
+2. **Choose the task** — one card per task/condition, with a picture from
+   the task itself. Tasks already done in the session are marked
+   **FEITA** (done).
 
-Each task can also be opened on its own, without going through the menu:
-every task/variant lives in its own folder under `Tarefas/`, with an
-**`Executable.bat`** file — double-click it to open the task.
+   ![Choosing a task](docs/img/guiado_tarefas.png)
 
-For the already-modernized tasks (see table below), the flow is:
+3. **Do the task** — the screen explains the task in plain words and has
+   **Ver o vídeo** (instructions video), **Treinar** (a few practice
+   trials that don't count) and **COMEÇAR A TAREFA** (start). On the task
+   screen, Space starts and **Esc** stops.
 
-1. **Settings screen** — fill in the subject code and session parameters
-   (number of trials, presentation time, interstimulus interval, etc.).
-   There are two buttons: **Começar** (Start), which runs the real
-   session with those parameters, and **Familiarização**
-   (Familiarization), which runs a short 4-trial practice block (no CSV
-   saved) so the participant can practice before the real run — once it
-   finishes, the settings screen comes back so you can click Começar.
+   ![Before starting a task](docs/img/guiado_tarefa.png)
+
+4. When it ends, the hits and errors are shown, with a button to go to the
+   **next task** on the list.
+
+   ![End of a task](docs/img/guiado_resultado.png)
+
+5. **End the session** — all results go to **one spreadsheet** (`.xlsx`),
+   saved wherever you choose: the **Sessão** sheet has one row per task
+   (hits, errors, no response) and each task has its own sheet with the
+   full summary. Closing the program without saving shows a warning.
+
+   ![Saving the results](docs/img/guiado_fim.png)
+
+The program also warns before redoing a task the participant has already
+done (in this session or an earlier one), since the new data replaces the
+old.
+
+### Advanced mode
+
+The **Modo avançado** button, at the top right, shows every task on one
+screen. Each task opens its own **settings screen** (number of trials,
+presentation time, interstimulus, etc.), pre-filled with the participant
+code, and at the end asks where to save that task's summary CSV. The
+**?** buttons open the instructions video. **Modo guiado** goes back to
+the step-by-step mode.
+
+![Advanced mode](docs/img/modo_avancado.png)
+
+## Running a single task
+
+Each task can also be opened without the menu: every task/variant lives
+in its own folder under `Tarefas/`, with an **`Executable.bat`** file —
+double-click it to open the task. The flow is the same as in advanced
+mode:
+
+1. **Settings screen** — fill in the subject code and the session
+   parameters. Two buttons: **Começar** (Start) runs the data collection
+   with those parameters, and **Familiarização** (Practice) runs a short
+   practice block (no CSV saved) — when it ends, the settings screen comes
+   back so you can click Começar.
 2. **Instructions screen** — shows the stimulus → key mapping; the
-   participant presses **spacebar** to begin.
-3. **Trials** — the task runs on its own until the end and then closes
-   automatically.
-4. **Results** — the task scores that subject's data and opens a "Save
-   As" window so you can choose where to save the processed summary CSV
-   (correct/incorrect/anticipatory/omitted counts, response time, and —
-   where applicable — congruency/switch-cost breakdowns).
-
-For tasks that haven't gone through this update yet, the subject code is
-set by editing `constants.py` (open it via the folder's
-`abrir_arquivo_constants.bat` shortcut) before double-clicking
-`Executable.bat`.
+   participant presses **Space** to start (Esc quits).
+3. **Trials** — the task runs on its own to the end and closes
+   automatically (Esc stops it).
+4. **Results** — the task scores this subject's data and opens a window
+   to choose where to save the summary CSV (correct, incorrect,
+   anticipatory and omitted responses, response time, and — where
+   applicable — congruency/switch costs).
 
 ## The tasks
 
-| Task | Folders/variants | New front end? |
-|---|---|:---:|
-| Arrows | (single folder) | ✅ |
-| Dots | `congruent`, `incongruent`, `mixed` | ✅ |
-| Abstract Shapes | `two_shapes`, `six_shapes` | ✅ |
-| Pictures | (single folder) | ✅ |
-| Flanker Test | `azul`, `rosa`, `mixed` | ✅ |
-| Go-No-Go | `tarefa_manual`, `tarefa_podal` | ⏳ not yet |
+| Task | Folders/variants |
+|---|---|
+| Arrows | (single folder) |
+| Dots | `congruent`, `incongruent`, `mixed` |
+| Abstract Shapes | `two_shapes`, `six_shapes` |
+| Pictures | (single folder) |
+| Flanker Test | `azul`, `rosa`, `mixed` |
+| Go-No-Go | `tarefa_manual` |
 
 ### Arrows (`Tarefas/Arrows`)
 
@@ -130,25 +169,30 @@ both, trial by trial). There's an extra feedback screen (happy/sad face)
 after each response, with a configurable duration on the settings screen
 (can be set to zero).
 
-### Go-No-Go (`Tarefas/Go-No-Go`)
+### Go-No-Go (`Tarefas/Go-No-Go/tarefa_manual`)
 
-An auditory task: numbers 1 through 9 are played as audio, and the
-participant should only respond when hearing the number 6 (go), inhibiting
-the response for every other number (no-go). `tarefa_manual` uses the
-spacebar; `tarefa_podal` uses a foot response and records the session on
-webcam.
+An auditory task: the numbers 1 to 9 appear on screen and are played as
+audio, and the participant presses **Space** only for the number 6 (go),
+withholding responses to the others (no-go). The summary has hits on 6,
+omissions, false alarms (pressed on a number other than 6), correct
+rejections and the mean reaction time on 6; the trial-by-trial
+spreadsheet is saved as `tarefa_manual/<code>_resultados.xlsx`.
 
 ## Where the data goes
 
-Each task/variant writes raw per-trial data to its own `trials/` folder
-(`SUJ<code>_trial<N>.csv` files), along with the session's stimulus
-sequence (`sequence.csv`) and the stimulus/response code legend
-(`legend.txt`). Each subject's processed summary (for the tasks with the
-new front end) is saved wherever you choose, when the "Save processed
-data" dialog appears.
+Each task/variant writes its raw per-trial data to its own `trials/`
+folder (`SUJ<code>_trial<N>.csv` files), along with that session's
+stimulus sequence (`sequence.csv`) and the stimulus/response code legend
+(`legend.txt`). Go-No-Go writes `<code>_resultados.xlsx` in the
+`tarefa_manual` folder. The processed summary is saved wherever you
+choose: one spreadsheet per session in guided mode, or one CSV per task
+in advanced mode and when running a single task.
 
-Batch analysis scripts (processing all subjects at once) live in
-`processar_dados/`.
+Participant data **is not pushed to GitHub**: `.gitignore` leaves out the
+`trials/SUJ*.csv` files, `Arrows/sujeitos/` and the Go-No-Go results.
+They stay only on the data-collection computer — back them up.
+
+Batch analysis scripts (all subjects at once) live in `processar_dados/`.
 
 ## Contact
 
