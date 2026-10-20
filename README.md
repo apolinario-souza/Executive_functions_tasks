@@ -9,6 +9,8 @@ participante e, ao final, processa e salva um resumo automaticamente. Um
 menu com **modo guiado** conduz a sessão passo a passo para quem tem pouca
 familiaridade com computador.
 
+A maioria das tarefas foi desenvolvida com base no artigo "Davidson, M. C., Amso, D., Anderson, L. C., & Diamond, A. (2006). Development of cognitive control and executive functions from 4 to 13 years: Evidence from manipulations of memory, inhibition, and task switching. Neuropsychologia, 44(11), 2037-2078."
+
 ## Instalação (Windows)
 
 ### 1. Baixar o programa
