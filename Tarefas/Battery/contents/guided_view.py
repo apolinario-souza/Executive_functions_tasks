@@ -266,7 +266,9 @@ class GuidedView:
                 box = tk.Frame(row, bg=PANEL, padx=30, pady=14)
                 box.pack(side="left", padx=(0, 14))
                 label(box, name, 14, MUTED).pack()
-                label(box, f"{value:g}" if isinstance(value, float) else f"{value}", 30, bold=True).pack()
+                if isinstance(value, float):
+                    value = "—" if value != value else f"{value:g}"  # NaN: nothing to compute it from
+                label(box, f"{value}", 30, bold=True).pack()
         label(self.body, "O resultado foi guardado. No fim da sessão você salva tudo de uma vez.",
               15, MUTED, anchor="w").pack(fill="x", pady=(10, 0))
 
