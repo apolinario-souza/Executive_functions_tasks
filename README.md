@@ -52,11 +52,18 @@ com computador: uma coisa por tela, letras e botões grandes, e os botões
 
    ![Código do participante](docs/img/guiado_participante.png)
 
-2. **Escolher a tarefa** — um cartão para cada tarefa/condição, com uma
-   imagem da própria tarefa. As já feitas na sessão ficam marcadas com
-   **FEITA**.
+2. **Escolher a tarefa** — um cartão para cada tarefa, com uma imagem da
+   própria tarefa. As já feitas na sessão ficam marcadas com **FEITA**
+   (ou "1 de 3 feitas", nas tarefas com mais de uma condição).
 
    ![Escolha da tarefa](docs/img/guiado_tarefas.png)
+
+   Dots, Abstract Shapes e Flanker Test têm mais de uma condição: ao
+   clicar, abre uma página para escolher qual fazer, com uma frase
+   explicando cada uma e a ordem recomendada (Dots: Congruente →
+   Incongruente → Mista; Abstract Shapes: 2 → 6 formas, como no Davidson).
+
+   ![Escolha da condição](docs/img/guiado_condicao.png)
 
 3. **Fazer a tarefa** — a tela explica a tarefa em palavras simples e tem
    os botões **Ver o vídeo** (instruções), **Treinar** (algumas tentativas

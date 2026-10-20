@@ -53,11 +53,18 @@ computer experience: one thing per screen, large text and buttons, and
 
    ![Participant code](docs/img/guiado_participante.png)
 
-2. **Choose the task** — one card per task/condition, with a picture from
-   the task itself. Tasks already done in the session are marked
-   **FEITA** (done).
+2. **Choose the task** — one card per task, with a picture from the task
+   itself. Tasks already done in the session are marked **FEITA** (done),
+   or "1 de 3 feitas" (1 of 3 done) for tasks with more than one condition.
 
    ![Choosing a task](docs/img/guiado_tarefas.png)
+
+   Dots, Abstract Shapes and Flanker Test have more than one condition:
+   clicking them opens a page to pick which one to run, with a sentence
+   explaining each and the recommended order (Dots: Congruent →
+   Incongruent → Mixed; Abstract Shapes: 2 → 6 shapes, as in Davidson).
+
+   ![Choosing the condition](docs/img/guiado_condicao.png)
 
 3. **Do the task** — the screen explains the task in plain words and has
    **Ver o vídeo** (instructions video), **Treinar** (a few practice

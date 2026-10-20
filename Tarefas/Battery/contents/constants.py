@@ -75,6 +75,23 @@ TASKS = [
          "text:6", None, GONOGO_RULE),
 ]
 
+# Tasks with more than one condition open a page to pick it: what each
+# condition is, in plain words, and the order to do them in (if any)
+VARIANT_TEXT = {
+    "Dots congruent": "Só círculos listrados: apertar do MESMO lado do círculo.",
+    "Dots incongruent": "Só círculos cinzas: apertar do lado OPOSTO ao círculo.",
+    "Dots mixed": "Círculos listrados e cinzas misturados: o participante precisa trocar de regra.",
+    "Abstract Shapes 2": "2 formas: uma forma para cada tecla.",
+    "Abstract Shapes 6": "6 formas: três formas para cada tecla.",
+    "Flanker azul": "Só peixes azuis.",
+    "Flanker rosa": "Só peixes rosas.",
+    "Flanker mixed": "Peixes azuis e rosas misturados.",
+}
+VARIANT_ORDER = {
+    "Dots": "Faça na ordem: Congruente, depois Incongruente e por último Mista (como em Davidson et al., 2006).",
+    "Abstract Shapes": "Faça na ordem: primeiro 2 formas, depois 6 formas (como em Davidson et al., 2006).",
+}
+
 # Raw data file each task writes for a participant ({suj} = code), used
 # to warn before a new run replaces data from an earlier session
 RAW_FILES = {

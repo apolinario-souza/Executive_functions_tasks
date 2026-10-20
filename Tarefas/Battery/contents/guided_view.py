@@ -2,12 +2,12 @@ import tkinter as tk
 from pathlib import Path
 from tkinter import messagebox
 
-from .constants import TASKS, TITLE, FOOTER_TEXT, RESULT_NAMES, BG, PANEL, FG, MUTED, FOOTER, ACCENT, OK, WARN, ERROR, GREY
+from .constants import TASKS, VARIANT_TEXT, VARIANT_ORDER, TITLE, FOOTER_TEXT, RESULT_NAMES, BG, PANEL, FG, MUTED, FOOTER, ACCENT, OK, WARN, ERROR, GREY
 from .session import open_path
 from .widgets import label, button, entry, load_icon
 
 STEPS = ["Participante", "Escolher a tarefa", "Fazer a tarefa"]
-COLUMNS = 4
+COLUMNS = 3
 
 
 def task_title(task):
@@ -17,9 +17,10 @@ def task_title(task):
 class GuidedView:
     """Step-by-step menu for people with little computer experience: one
     thing per screen, big text and buttons, Back/Continue at the bottom.
-    Participant → task (cards, marked "FEITA" once done) → how
-    the task works, video, practice and start; after each task, go to the
-    next one or end the session and save the spreadsheet."""
+    Participant → task (cards, marked "FEITA" once done) → condition (only
+    Dots, Abstract Shapes and Flanker) → how the task works, video,
+    practice and start; after each task, go to the next one or end the
+    session and save the spreadsheet."""
 
     def __init__(self, app):
         self.app = app
@@ -133,37 +134,78 @@ class GuidedView:
 
     # ---------- 2. task ----------
 
+    def _groups(self):
+        """The tasks as the menu shows them: one entry per task name, with
+        its conditions (e.g. Dots: Congruente, Incongruente, Mista)."""
+        groups = {}
+        for task in TASKS:
+            groups.setdefault(task.name, []).append(task)
+        return list(groups.values())
+
     def _step_tasks(self):
         self._clear(1)
         n = len(self.session.results)
-        done = f"  Já feitas: {n} de {len(TASKS)}." if n else ""
+        done = f"  Já feitas: {n} de {len(TASKS)}, contando cada condição." if n else ""
         self._title(f"Participante {self.session.subject.get().strip()}: escolha a tarefa",
                     "Clique na tarefa que o participante vai fazer agora." + done)
         grid = tk.Frame(self.body, bg=BG)
         grid.pack(fill="x", pady=(14, 0))
-        for i, task in enumerate(TASKS):
+        for i, group in enumerate(self._groups()):
+            n_done = sum(task.key in self.session.results for task in group)
+            if len(group) == 1:
+                status = "FEITA" if n_done else ""
+                subtitle, open_it = "", lambda g=group: self._choose(g[0])
+            else:
+                status = f"{n_done} de {len(group)} feitas" if n_done else ""
+                subtitle = f"{len(group)} condições"
+                open_it = lambda g=group: self._step_variants(g)
+            # the picture of the condition that shows the most (e.g. Dots-Mista: both circles)
+            icon = max(group, key=lambda task: len(task.icon) if isinstance(task.icon, list) else 1).icon
             grid.columnconfigure(i % COLUMNS, weight=1, uniform="card")
-            self._card(grid, task).grid(row=i // COLUMNS, column=i % COLUMNS, sticky="nsew", padx=6, pady=6)
+            self._card(grid, icon, group[0].name, subtitle, status, n_done == len(group), open_it).grid(
+                row=i // COLUMNS, column=i % COLUMNS, sticky="nsew", padx=8, pady=8)
         self._nav(back=self._step_participant, forward=self._screen_end,
                   forward_text="Terminar a sessão", forward_color=GREY)
 
-    def _card(self, parent, task):
-        done = task.key in self.session.results
+    def _step_variants(self, group):
+        """Extra page for tasks with more than one condition."""
+        self._clear(1)
+        row = tk.Frame(self.body, bg=BG)
+        row.pack(fill="x", pady=(0, 6))
+        image = load_icon(group[-1].icon, 64)
+        if image is not None:
+            tk.Label(row, image=image, bg=BG).pack(side="left", padx=(0, 16))
+        label(row, f"{group[0].name}: escolha a condição", 28, bold=True).pack(side="left")
+        order = VARIANT_ORDER.get(group[0].name)
+        label(self.body, "Clique na condição que o participante vai fazer agora." + (f"\n{order}" if order else ""),
+              16, MUTED, anchor="w", justify="left", wraplength=1150).pack(fill="x", pady=(0, 10))
+        grid = tk.Frame(self.body, bg=BG)
+        grid.pack(fill="x", pady=(10, 0))
+        for i, task in enumerate(group):
+            done = task.key in self.session.results
+            grid.columnconfigure(i, weight=1, uniform="variant")
+            self._card(grid, task.icon, task.variant, VARIANT_TEXT.get(task.key, ""), "FEITA" if done else "",
+                       done, lambda t=task: self._choose(t), size=72, wrap=280).grid(
+                row=0, column=i, sticky="nsew", padx=8, pady=8)
+        self._nav(back=self._step_tasks)
+
+    def _card(self, parent, icon, title, subtitle, status, done, command, size=64, wrap=220):
         color = OK if done else PANEL
         card = tk.Frame(parent, bg=PANEL, cursor="hand2", highlightthickness=3,
-                        highlightbackground=color, padx=10, pady=8)
+                        highlightbackground=color, padx=12, pady=10)
         parts = [card]
-        image = load_icon(task.icon, 56)
+        image = load_icon(icon, size)
         if image is not None:
-            icon = tk.Label(card, image=image, bg=PANEL, cursor="hand2")
-            icon.pack(side="left", padx=(0, 10))
-            parts.append(icon)
+            picture = tk.Label(card, image=image, bg=PANEL, cursor="hand2")
+            picture.pack(side="left", padx=(0, 12), anchor="n")
+            parts.append(picture)
         text = tk.Frame(card, bg=PANEL, cursor="hand2")
         text.pack(side="left", fill="x", expand=True)
         parts.append(text)
-        for line in (label(text, task.name, 15, bold=True, anchor="w", cursor="hand2"),
-                     label(text, task.variant or " ", 13, MUTED, anchor="w", cursor="hand2"),
-                     label(text, "FEITA" if done else " ", 13, OK, bold=True, anchor="w", cursor="hand2")):
+        for line in (label(text, title, 17, bold=True, anchor="w", cursor="hand2"),
+                     label(text, subtitle or " ", 13, MUTED, anchor="w", justify="left", wraplength=wrap,
+                           cursor="hand2"),
+                     label(text, status or " ", 13, OK, bold=True, anchor="w", cursor="hand2")):
             line.pack(fill="x")
             parts.append(line)
 
@@ -171,7 +213,7 @@ class GuidedView:
             card.config(highlightbackground=ACCENT if on else color)
 
         for part in parts:
-            part.bind("<Button-1>", lambda e: self._choose(task))
+            part.bind("<Button-1>", lambda e: command())
             part.bind("<Enter>", lambda e: hover(True))
             part.bind("<Leave>", lambda e: hover(False))
         return card
@@ -179,6 +221,15 @@ class GuidedView:
     def _choose(self, task):
         self.task = task
         self._step_run()
+
+    def _back_from_task(self):
+        """From a task's page back to where it was picked: its conditions
+        page, or the task list."""
+        group = next(g for g in self._groups() if self.task in g)
+        if len(group) > 1:
+            self._step_variants(group)
+        else:
+            self._step_tasks()
 
     # ---------- 3. how it works, practice, start ----------
 
@@ -211,7 +262,7 @@ class GuidedView:
 
         label(self.body, "Para parar a tarefa no meio, aperte a tecla ESC.", 15, WARN, anchor="w").pack(
             fill="x", pady=(18, 0))
-        self._nav(back=self._step_tasks, forward=self._start, forward_text="▶  COMEÇAR A TAREFA",
+        self._nav(back=self._back_from_task, forward=self._start, forward_text="▶  COMEÇAR A TAREFA",
                   forward_color=OK)
 
     def _practice(self):
