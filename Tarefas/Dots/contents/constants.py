@@ -16,6 +16,12 @@ def _parse_args():
     parser.add_argument("--n-trials", type=int, default=20)
     parser.add_argument("--presentation-time", type=int, default=750)
     parser.add_argument("--interstimulus", type=int, default=500)
+    # Used by the battery's guided mode (Tarefas/Battery): skip the
+    # settings screen, run straight from the values above and hand the
+    # summary to the battery in --result-file instead of a "Save as" window.
+    parser.add_argument("--guided", action="store_true")
+    parser.add_argument("--practice", action="store_true")
+    parser.add_argument("--result-file", default=None)
     # Ignore unknown args so this also works fine if invoked from a future
     # battery launcher that passes extra shared flags.
     args, _unknown = parser.parse_known_args()

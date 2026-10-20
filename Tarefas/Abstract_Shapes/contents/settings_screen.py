@@ -113,6 +113,12 @@ class SettingsScreen:
         n_trials = self.variant * reps
         return {**base, "n_trials": n_trials, "practice": True}, None
 
+    def preset(self, practice=False):
+        """What 'Começar' (or 'Familiarização') would return with the
+        pre-filled values, without showing the screen — used by the
+        battery's guided mode. Returns (config, error)."""
+        return self._validate_practice() if practice else self._validate()
+
     def run(self):
         clock = pygame.time.Clock()
         pygame.mouse.set_visible(True)

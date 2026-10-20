@@ -2,12 +2,12 @@ import sys
 
 import pygame
 
-from contents.constants import WIDTH, HEIGHT, DEFAULTS
+from contents.constants import WIDTH, HEIGHT, DEFAULTS, ARGS
 from contents.settings_screen import SettingsScreen
 from contents.session import Session
 from contents.instructions_screen import show_instructions
 from contents.draw import Draw
-from contents.results import summarize_subject, save_summary_dialog
+from contents.results import summarize_subject, save_summary_dialog, save_summary_file
 
 '''
 ""I want you to push the button the arrow is pointing toward. If the arrow is on the side of the box pointing down like this
@@ -31,7 +31,12 @@ def main():
 
     while True:
         settings = SettingsScreen(WIN, defaults)
-        config = settings.run()
+        if ARGS.guided:
+            config, error = settings.preset(practice=ARGS.practice)
+            if config is None:
+                sys.exit(error)
+        else:
+            config = settings.run()
         if config is None:
             break
 
@@ -51,6 +56,8 @@ def main():
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                    run = False
 
             draw.update()
 
@@ -61,6 +68,8 @@ def main():
             break
 
         if config.get("practice"):
+            if ARGS.guided:
+                break  # the battery shows what comes next
             # Practice round done: back to the settings screen (with the
             # same values already filled in) so the experimenter can start
             # the real task next.
@@ -70,7 +79,10 @@ def main():
         # All trials done: score this subject and let the experimenter
         # choose where to save the processed summary.
         summary = summarize_subject(session)
-        save_summary_dialog(summary, default_name=f"Arrows_SUJ{session.suj}.csv")
+        if ARGS.result_file:
+            save_summary_file(summary, ARGS.result_file)
+        else:
+            save_summary_dialog(summary, default_name=f"Arrows_SUJ{session.suj}.csv")
         break
 
     pygame.quit()

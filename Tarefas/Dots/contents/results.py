@@ -13,6 +13,7 @@ Per condition (from those scripts):
 - mixed:       stim 1/3 (striped) are congruent, 2/4 (solid) are incongruent
 """
 import csv
+import json
 import tkinter as tk
 from tkinter import filedialog
 
@@ -145,3 +146,10 @@ def save_summary_dialog(summary, default_name):
         writer.writerow(summary.keys())
         writer.writerow(summary.values())
     return path
+
+
+def save_summary_file(summary, path):
+    """Writes the summary as JSON for the battery's guided mode, which
+    collects every task of the session into one spreadsheet."""
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(summary, f, default=float)

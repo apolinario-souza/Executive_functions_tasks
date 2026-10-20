@@ -8,6 +8,7 @@ session's own interstimulus/n_trials instead of the hardcoded 500 ms / 20
 trials that batch script assumes.
 """
 import csv
+import json
 import tkinter as tk
 from tkinter import filedialog
 
@@ -131,3 +132,10 @@ def save_summary_dialog(summary, default_name):
         writer.writerow(summary.keys())
         writer.writerow(summary.values())
     return path
+
+
+def save_summary_file(summary, path):
+    """Writes the summary as JSON for the battery's guided mode, which
+    collects every task of the session into one spreadsheet."""
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(summary, f, default=float)

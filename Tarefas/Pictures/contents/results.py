@@ -11,6 +11,7 @@ Frog (1,3) is correct on the right key; butterfly (2,4) is correct on the
 left key. Congruent = butterfly-left or frog-right (2, 3).
 """
 import csv
+import json
 import tkinter as tk
 from tkinter import filedialog
 
@@ -132,3 +133,10 @@ def save_summary_dialog(summary, default_name):
         writer.writerow(summary.keys())
         writer.writerow(summary.values())
     return path
+
+
+def save_summary_file(summary, path):
+    """Writes the summary as JSON for the battery's guided mode, which
+    collects every task of the session into one spreadsheet."""
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(summary, f, default=float)
