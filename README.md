@@ -349,10 +349,6 @@ Onde essas colunas fazem sentido:
   `sem_troca_inc` (no Incongruente) são usadas no custo global de troca
   (aba Comparações).
 
-> **Atenção ao número de tentativas.** Com 20 tentativas por bloco,
-> alguns grupos têm só 2 ou 3 tentativas, e uma mediana de 2 valores é
-> muito instável. Antes de interpretar `pct_corretas_<grupo>` ou
-> `tr_mediana_<grupo>`, olhe `n_tentativas_<grupo>`.
 
 ### O que cada tarefa mede (Davidson et al., 2006)
 
@@ -427,16 +423,7 @@ cada ~5 ms) e três colunas:
 
 `sequence.csv` tem a ordem dos estímulos da última sessão.
 
-> **Dados coletados antes de 20/10/2026.** Até essa data a coluna `Time`
-> era gravada como 0, 5, 10, 15… (supondo quadros de exatamente 5 ms). Os
-> quadros duram mais e variam, então o TR saía **menor que o real**: nos
-> dados de teste que conferimos, de 28 a 78 ms a menos no TR mediano. O
-> script `processar_dados/corrigir_tempo_dados_antigos.py` reescala o
-> tempo desses arquivos e recalcula os resumos com as medidas acima. Os
-> originais não são alterados. A correção é **aproximada**, porque supõe
-> que todos os quadros da tentativa tiveram a mesma duração. Veja as
-> instruções no início do script. Os scripts `read_trials_*.py` da mesma
-> pasta ainda usam o cálculo antigo.
+
 
 ### Diferenças em relação ao protocolo do Davidson
 
