@@ -213,12 +213,12 @@ depois que o estímulo aparece:
 | **Antecipada** | A primeira tecla veio **até 200 ms** depois do estímulo, rápido demais para ser resposta a ele. Inclui a tecla que já estava apertada desde a tentativa anterior. | não | não |
 | **Omissa** | Nenhuma tecla até o fim da tentativa | não | não |
 
-O **tempo de reação (TR)*** é contado a partir do momento em que o estímulo
+O **tempo de reação (TR)** é contado a partir do momento em que o estímulo
 aparece, em milissegundos (ms) até o pressionamento da tecla. A resposta vale até o fim da tentativa:
 fim da apresentação + cerca de 50 ms. No Flanker, também vale durante a
 tela de feedback (rosto feliz/triste).
 
-Obs.: Reconhecemos que o termo correto não seria **tempo de reação**, mas sim **tempo de resposta**. Contudo, para deixarmos padronizado conforme o estudo de referência, utilizaremos essa nomenclatura. 
+*Obs.: Reconhecemos que o termo correto não seria **tempo de reação**, mas sim **tempo de resposta**. Contudo, para padronizarmos conforme o estudo de referência, utilizaremos essa nomenclatura.*
 
 Três medidas aparecem em todos os grupos de tentativas:
 
